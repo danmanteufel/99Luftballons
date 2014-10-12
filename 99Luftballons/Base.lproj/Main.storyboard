@@ -63,8 +63,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="balloonImageView" destination="Glw-u7-FyA" id="aI9-Fs-OYq"/>
-                        <outlet property="balloonNumberLabel" destination="S0D-jd-rsg" id="LA6-gr-CuQ"/>
+                        <outlet property="luftballonImageView" destination="Glw-u7-FyA" id="wnh-yZ-kVc"/>
+                        <outlet property="luftballonNumberLabel" destination="S0D-jd-rsg" id="fYq-Eb-9cc"/>
                         <outlet property="nextButton" destination="6qM-aW-Qqv" id="kHA-rr-iSc"/>
                     </connections>
                 </viewController>

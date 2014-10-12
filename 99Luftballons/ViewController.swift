@@ -8,77 +8,87 @@
 
 import UIKit
 
+//MARK: Controller
+
 class ViewController: UIViewController {
 
-    @IBOutlet weak var balloonImageView: UIImageView!
-    @IBOutlet weak var balloonNumberLabel: UILabel!
+    //MARK: IBOutlets
+    @IBOutlet weak var luftballonImageView: UIImageView!
+    @IBOutlet weak var luftballonNumberLabel: UILabel!
     @IBOutlet weak var nextButton: UIBarButtonItem!
     
-//    @IBOutlet weak var temporaryTestLabel: UILabel!
-    
-    var luftballons: [Balloon] = []
-    var currentIndex = 4
-    
+    //MARK: Run Sequence and Supporting Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-            
-        create99Luftballons()
+        
+        createLuftballons()
         displayLuftballon()
     }
 
-    func create99Luftballons() {
-        for counter in 1...99 {
-            luftballons.append(Balloon(orderNumber: counter,randomImageName: assignRandomImage()))
-        }
-    }
-    
     func displayLuftballon() {
-        balloonNumberLabel.text = "\(luftballons.last!.orderNumber)"
-//        temporaryTestLabel.text = luftballons.last!.randomImageName
-        balloonImageView.image = UIImage(named: luftballons.last!.randomImageName)
+        luftballonNumberLabel.text = "\(luftballons.last!.orderNumber)"
+        luftballonImageView.image = UIImage(named: luftballons.last!.randomImageName)
     }
     
-    func assignRandomImage() -> String {
-        var randomIndex: Int
-        
-        do {
-            randomIndex = Int(arc4random_uniform(UInt32(4)))
-        } while currentIndex == randomIndex
-
-        currentIndex = randomIndex
-        
-        switch randomIndex {
-        case 0:
-            return "RedBalloon1.jpg"
-        case 1:
-            return "RedBalloon2.jpg"
-        case 2:
-            return "RedBalloon3.jpg"
-        case 3:
-            return "RedBalloon4.jpg"
-        default:
-            return "BerlinTVTower.jpg"
-        }
-    }
-    
+    //MARK: IBActions
     @IBAction func nextButtonPressed(sender: UIBarButtonItem) {
         if luftballons.count > 1 {
             luftballons.removeLast()
             displayLuftballon()
         } else {
-            balloonNumberLabel.font = UIFont.systemFontOfSize(48.0)
-            balloonNumberLabel.text = "All Gone!"
-//            temporaryTestLabel.text = "Done"
+            luftballonNumberLabel.font = UIFont.systemFontOfSize(48.0)
+            luftballonNumberLabel.text = "All Gone!"
             nextButton.enabled = false
             nextButton.title = "Done"
+            luftballonImageView.image = UIImage(named: "BerlinTVTower.jpg")
         }
     }
     
 }
 
-struct Balloon {
+//MARK: - Model
+
+//MARK: Defines
+let numberOfLuftballons = 99
+
+//MARK: Globals
+var luftballons: [Luftballon] = []
+var currentIndex = 4
+
+//MARK: Structs
+struct Luftballon {
     let orderNumber: Int
     let randomImageName: String
 }
+
+//MARK: Functions
+func createLuftballons() {
+    for counter in 1...numberOfLuftballons {
+        luftballons.append(Luftballon(orderNumber: counter,randomImageName: assignRandomImage()))
+    }
+}
+
+func assignRandomImage() -> String {
+    var randomIndex: Int
+    
+    do {
+        randomIndex = Int(arc4random_uniform(UInt32(4)))
+    } while currentIndex == randomIndex
+    
+    currentIndex = randomIndex
+    
+    switch randomIndex {
+    case 0:
+        return "RedBalloon1.jpg"
+    case 1:
+        return "RedBalloon2.jpg"
+    case 2:
+        return "RedBalloon3.jpg"
+    case 3:
+        return "RedBalloon4.jpg"
+    default:
+        return "BerlinTVTower.jpg"
+    }
+}
+
 
